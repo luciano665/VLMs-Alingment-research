@@ -1,0 +1,20 @@
+# data & results are large / regenerable — keep them out of git
+data/raw/
+data/benchmark_v1.json
+results/
+*.log
+slurm-*.out
+
+# secrets — NEVER commit API keys
+.env
+*.key
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+env/
+
+# os
+.DS_Store
