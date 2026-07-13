@@ -1,0 +1,29 @@
+name: spatial-syco
+# Environment for the spatial false-premise sycophancy benchmark.
+# Works on Dolly Sods (load a CUDA-capable python module first, or use this conda env
+# directly) and on any local/Kaggle/Colab box.
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - matplotlib
+  - pillow
+  - pip:
+      # --- core (needed for API-only runs; no GPU required) ---
+      - openai            # OpenAI-compatible client -> Together/OpenRouter/DeepInfra/OpenAI
+      - requests
+      - tqdm
+      # --- local VLM inference on the HPC (medical models) ---
+      # Install torch matched to the cluster CUDA (see slurm scripts); pinning it here
+      # can conflict with the module-provided CUDA, so install torch separately if needed:
+      #   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+      - transformers>=4.45
+      - accelerate
+      - sentencepiece
+      - bitsandbytes      # 8-bit / 4-bit for 13B+ models on 24GB cards
+      - qwen-vl-utils     # only if evaluating Qwen-VL family
