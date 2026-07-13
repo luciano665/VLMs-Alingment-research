@@ -1,0 +1,14 @@
+# Core (needed for API-only runs; no GPU required)
+openai
+requests
+tqdm
+python-dotenv
+
+# Local VLM inference on HPC (medical models)
+# Install torch separately matched to cluster CUDA:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+transformers>=4.45
+accelerate
+sentencepiece
+bitsandbytes
+qwen-vl-utils
