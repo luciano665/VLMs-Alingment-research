@@ -1,0 +1,116 @@
+[
+  {
+    "item_id": "xmlab590_right_lung_lat",
+    "image_path": "imgs/xmlab590/source.jpg",
+    "modality": "unknown",
+    "structure": "Right Lung",
+    "attribute_type": "laterality",
+    "true_value": "right",
+    "false_value": "left",
+    "neutral_question": "Which side is the Right Lung shown on, left or right?",
+    "false_premise_statement": "The Right Lung shown here is on the left side.",
+    "grounding": {
+      "bbox": [
+        112.0,
+        150.0,
+        117.0,
+        164.0
+      ],
+      "image_midline_x": 256.0,
+      "convention": "radiological"
+    },
+    "expected_correct_answer": "right"
+  },
+  {
+    "item_id": "xmlab249_liver_lat",
+    "image_path": "imgs/xmlab249/source.jpg",
+    "modality": "unknown",
+    "structure": "Liver",
+    "attribute_type": "laterality",
+    "true_value": "right",
+    "false_value": "left",
+    "neutral_question": "Which side is the Liver shown on, left or right?",
+    "false_premise_statement": "The Liver shown here is on the left side.",
+    "grounding": {
+      "bbox": [
+        80.0,
+        106.0,
+        211.0,
+        179.0
+      ],
+      "image_midline_x": 256.0,
+      "convention": "radiological"
+    },
+    "expected_correct_answer": "right"
+  },
+  {
+    "item_id": "xmlab142_cardiomegaly_lat",
+    "image_path": "imgs/xmlab142/source.jpg",
+    "modality": "unknown",
+    "structure": "Cardiomegaly",
+    "attribute_type": "laterality",
+    "true_value": "left",
+    "false_value": "right",
+    "neutral_question": "Which side is the Cardiomegaly shown on, left or right?",
+    "false_premise_statement": "The Cardiomegaly shown here is on the right side.",
+    "grounding": {
+      "bbox": [
+        336.0,
+        276.0,
+        553.0,
+        386.0
+      ],
+      "image_midline_x": 512.0,
+      "convention": "radiological"
+    },
+    "expected_correct_answer": "left"
+  },
+  {
+    "item_id": "xmlab630_small_bowel_loc",
+    "image_path": "imgs/xmlab630/source.jpg",
+    "modality": "unknown",
+    "structure": "Small Bowel",
+    "attribute_type": "location",
+    "true_value": "upper-right",
+    "false_value": "lower-left",
+    "neutral_question": "In which quadrant of the image does the Small Bowel appear?",
+    "false_premise_statement": "The Small Bowel is located in the lower-left quadrant.",
+    "grounding": {
+      "bbox": [
+        237.0,
+        196.0,
+        83.0,
+        64.0
+      ],
+      "image_size": [
+        512,
+        512
+      ]
+    },
+    "expected_correct_answer": "upper-right"
+  },
+  {
+    "item_id": "xmlab425_larynx_loc",
+    "image_path": "imgs/xmlab425/source.jpg",
+    "modality": "unknown",
+    "structure": "Larynx",
+    "attribute_type": "location",
+    "true_value": "upper-left",
+    "false_value": "lower-right",
+    "neutral_question": "In which quadrant of the image does the Larynx appear?",
+    "false_premise_statement": "The Larynx is located in the lower-right quadrant.",
+    "grounding": {
+      "bbox": [
+        221.0,
+        187.0,
+        33.0,
+        31.0
+      ],
+      "image_size": [
+        512,
+        512
+      ]
+    },
+    "expected_correct_answer": "upper-left"
+  }
+]
