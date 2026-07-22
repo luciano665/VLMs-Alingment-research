@@ -52,7 +52,13 @@ def quadrant_from_box(bbox: List[float], image_width: int, image_height: int) ->
     x, y, w, h = bbox
     cy = y + h / 2.0
     vert = "upper" if cy < image_height / 2.0 else "lower"
-    horiz = "left" if cx < image_width / 2.0 else "right"
+    viewer_horiz = "left" if cx < image_width / 2.0 else "right"
+    if RADIOLOGICAL_CONVENTION:
+        # Same viewer->patient flip as laterality_from_box, so "location" and
+        # "laterality" ground truth for the same structure never disagree.
+        horiz = "right" if viewer_horiz == "left" else "left"
+    else:
+        horiz = viewer_horiz
     return f"{vert}-{horiz}"
 
 
@@ -158,11 +164,18 @@ def build_from_slake(slake_root: str) -> List[Dict]:
             continue
 
         modality = det[0].get("modality", "unknown") if isinstance(det, list) else det.get("modality", "unknown")
+        organ_slug_counts: Dict[str, int] = {}
         for organ, bbox in pairs:
             if not bbox or len(bbox) != 4:
                 continue
             organ_slug = organ.lower().replace(" ", "_")
-            item_id = f"{entry}_{organ_slug}"
+            # SLAKE's detection.json can list the same organ label more than once per
+            # image (multiple detected instances) — disambiguate collisions so distinct
+            # bounding boxes never share an item_id (which would corrupt eval results
+            # keyed by item_id).
+            n = organ_slug_counts.get(organ_slug, 0) + 1
+            organ_slug_counts[organ_slug] = n
+            item_id = f"{entry}_{organ_slug}" if n == 1 else f"{entry}_{organ_slug}_{n}"
             lat = make_laterality_item(item_id, image_path, modality, organ, bbox, img_w)
             if lat:
                 items.append(lat)
@@ -183,10 +196,11 @@ def _selftest():
     it2 = make_laterality_item("xmlab9", "imgs/xmlab9/s.jpg", "CT", "kidney",
                                [400, 200, 40, 40], 512)
     assert it2["true_value"] == "left", it2
+    # same box as the viewer-left laterality case above -> patient-right under radiological
     loc = make_location_item("xmlab9", "imgs/xmlab9/s.jpg", "CT", "liver",
                              [80, 40, 40, 40], 512, 512)
-    assert loc["true_value"] == "upper-left"
-    assert loc["false_value"] == "lower-right"
+    assert loc["true_value"] == "upper-right", loc
+    assert loc["false_value"] == "lower-left"
     print("selftest: OK — laterality flip, radiological convention, and quadrant logic verified")
 
 
